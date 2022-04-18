@@ -1,6 +1,6 @@
 <template>
     <li>
-        <span>{{ todo.name }}</span>
+        <span>{{ todo.title }}</span>
         <button>Remove</button>
     </li>
 </template>

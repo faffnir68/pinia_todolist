@@ -6,28 +6,51 @@ export const useTodoListStore = defineStore('todoList', {
             todos: [
                 {
                     id: 1,
-                    name: "Appointment to the doctor",
+                    title: "Appointment to the doctor",
                     isFinished: false
                 },
                 {
                     id: 2,
-                    name: "Starting lunch break",
+                    title: "Starting lunch break",
                     isFinished: false
                 },
                 {
                     id: 3,
-                    name: "Going to Japan",
+                    title: "Going to Japan",
                     isFinished: true
                 }
-            ]
+            ],
+            showTodos: 'All',
+
+
         }
     },
     getters: {
+        isFinished(state) {
+            return this.todos.filter(todo => todo.isFinished)
+        },
+        isNotFinished(state) {
+            return this.todos.filter(todo => !todo.isFinished)
+        },
         filteredTodos(state) {
-            return this.todos
+            if(this.showTodos === "Finished") {
+                return this.isFinished
+            }
+            else if (this.showTodos === "Not finished") {
+                return this.isNotFinished
+            }
+            else {
+                return this.todos
+            }
         }
     },
     actions: {
-
+        addTodo(title) {
+            this.todos.push({
+                id: 8,
+                title,
+                isFinished: false
+            })
+        }
     }
 })

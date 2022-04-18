@@ -5,12 +5,17 @@
             <label for="todo-input">{{ label }}</label>    
             <input type="text" name="" id="" :placeholder="label" :aria-label="label">
         </fieldset>
-        <BaseButton />
+        <BaseButton @click.prevent="todos.addTodo('je suis un etxt')" />
     </form>
 </template>
 
 <script setup>
 import BaseButton from './BaseButton.vue';
+import { useTodoListStore } from '../../stores/todoList.js';
+
+const todos = useTodoListStore()
+console.log(todos)
+
     defineProps({
         label: {
             type: String,
