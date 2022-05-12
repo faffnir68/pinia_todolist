@@ -1,11 +1,11 @@
 <template>
-    <form action="">
+    <form action="" @submit.prevent="todos.addTodo(todoTitle)">
         <fieldset>
             <legend>Add a todo</legend>
             <label for="todo-input">{{ label }}</label>    
-            <input type="text" name="" id="" :placeholder="label" :aria-label="label">
+            <input type="text" v-model="todoTitle" name="" id="" :placeholder="label" :aria-label="label">
         </fieldset>
-        <BaseButton @click.prevent="todos.addTodo('je suis un etxt')" />
+        <BaseButton />
     </form>
 </template>
 
@@ -14,7 +14,6 @@ import BaseButton from './BaseButton.vue';
 import { useTodoListStore } from '../../stores/todoList.js';
 
 const todos = useTodoListStore()
-console.log(todos)
 
     defineProps({
         label: {

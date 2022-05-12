@@ -1,11 +1,13 @@
 <template>
     <li>
         <span>{{ todo.title }}</span>
-        <button>Remove</button>
+        <button @click.prevent="todos.removeTodo(todo.id)">Remove</button>
     </li>
 </template>
 
 <script setup>
+import { useTodoListStore } from '../../stores/todoList.js'
+const todos = useTodoListStore()
     defineProps({
         todo: {
             type: Object,

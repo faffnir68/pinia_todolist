@@ -21,8 +21,6 @@ export const useTodoListStore = defineStore('todoList', {
                 }
             ],
             showTodos: 'All',
-
-
         }
     },
     getters: {
@@ -47,10 +45,13 @@ export const useTodoListStore = defineStore('todoList', {
     actions: {
         addTodo(title) {
             this.todos.push({
-                id: 8,
-                title,
+                id: 5,
+                title: title,
                 isFinished: false
             })
+        },
+        removeTodo(id) {
+            this.todos = this.todos.filter(todo => todo.id !== id)
         }
     }
 })

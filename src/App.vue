@@ -1,7 +1,7 @@
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue';
 import TodosView from './views/todosView.vue';
 </script>
 
@@ -15,6 +15,11 @@ import TodosView from './views/todosView.vue';
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  height: 100vh;
+  color: #EDEDED;
+  background: #171717;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -22,8 +27,6 @@ import TodosView from './views/todosView.vue';
   /* text-align: center; */
   /* color: #2c3e50; */
   /* margin-top: 60px; */
-  height: 100vh;
-  color: #EDEDED;
-  background: #171717;
+  height: 100%; 
 }
 </style>
