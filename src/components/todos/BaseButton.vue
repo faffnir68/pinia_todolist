@@ -1,8 +1,14 @@
 <template>
-    <button type="submit">Add to the list</button>
+    <button :type="buttonType">{{ label }}</button>
 </template>
 
 <script setup>
+    defineProps({
+        label: {
+            type: String,
+            required: true
+        },
+    })
 </script>
 
 <style lang="scss" scoped>
@@ -15,9 +21,10 @@
         max-width: 500px;
         display: flex;
         justify-content: center;
-        padding: 15px;
+        padding: 15px 5px;
         margin: 15px auto 0;
         border-radius: 5px;
+        cursor: pointer;
         &:hover {
             background: #444444;
             color: #EDEDED;

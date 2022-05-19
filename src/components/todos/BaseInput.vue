@@ -1,20 +1,26 @@
 <template>
-    <form action="" @submit.prevent="todos.addTodo(todoTitle)">
+    <form action="" @submit.prevent="todosStore.addTodo(todosStore.title)">
         <fieldset>
             <legend>Add a todo</legend>
             <label for="todo-input">{{ label }}</label>    
-            <input type="text" v-model="todoTitle" name="" id="" :placeholder="label" :aria-label="label">
+            <input type="text" v-model="todosStore.title" name="" id="" :placeholder="label" :aria-label="label">
         </fieldset>
-        <BaseButton />
+        <BaseButton type="submit" label="Add a task" />
     </form>
+    <div class="flex">
+        <p>Show tasks : </p>
+        <BaseButton @click.prevent="todosStore.showTodosAction('All')" label="All" />
+        <BaseButton @click.prevent="todosStore.showTodosAction('Done')" label="Done only" />
+        <BaseButton @click.prevent="todosStore.showTodosAction('Undone')" label="Todo only" />
+    </div>
+        Remaining : <span>{{ todosStore.remaining }}</span>
 </template>
 
 <script setup>
 import BaseButton from './BaseButton.vue';
 import { useTodoListStore } from '../../stores/todoList.js';
 
-const todos = useTodoListStore()
-
+const todosStore = useTodoListStore()
     defineProps({
         label: {
             type: String,
@@ -33,7 +39,7 @@ const todos = useTodoListStore()
         width: 100%;
         max-width: 500px;
         height: 48px;
-        margin: 15px auto 15px;
+        margin: 15px auto 0;
         padding: 15px;
         font-size: 16px;
     }
@@ -55,5 +61,19 @@ const todos = useTodoListStore()
         max-width: 500px;
         margin: auto;
         text-align: center;
+    }
+    .flex {
+        display: flex;
+        align-items: baseline;
+        margin: auto;
+        max-width: 450px;
+        width: 100%;
+        gap: 15px;
+    }
+    .flex button {
+        width: 300px;
+    }
+    .flex p {
+        width: 350px;
     }
 </style>

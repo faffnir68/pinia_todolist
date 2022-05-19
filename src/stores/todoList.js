@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia'
+import { v4 as uuidv4 } from 'uuid';
 
 export const useTodoListStore = defineStore('todoList', {
     state: () => {
         return {
+            title: "",
             todos: [
                 {
                     id: 1,
@@ -21,37 +23,64 @@ export const useTodoListStore = defineStore('todoList', {
                 }
             ],
             showTodos: 'All',
+            isEdited: null,
+            
         }
     },
     getters: {
-        isFinished(state) {
-            return this.todos.filter(todo => todo.isFinished)
-        },
-        isNotFinished(state) {
-            return this.todos.filter(todo => !todo.isFinished)
+        remaining(state) {
+            return state.todos.filter(todo => !todo.isFinished).length
         },
         filteredTodos(state) {
-            if(this.showTodos === "Finished") {
-                return this.isFinished
+            if(state.showTodos === "All") {
+                return state.todos.filter(todo => todo)
             }
-            else if (this.showTodos === "Not finished") {
-                return this.isNotFinished
+            if(state.showTodos === "Done") {
+                return state.todos.filter(todo => todo.isFinished)
             }
-            else {
-                return this.todos
+            if(state.showTodos === "Undone") {
+                return state.todos.filter(todo => !todo.isFinished)
             }
         }
     },
     actions: {
-        addTodo(title) {
+        addTodo(item) {
+            if(item.length === 0) return
             this.todos.push({
-                id: 5,
-                title: title,
+                id: uuidv4(),
+                title: item,
                 isFinished: false
             })
+            this.title = ""
         },
         removeTodo(id) {
             this.todos = this.todos.filter(todo => todo.id !== id)
+        },
+        toggleFinished(id) {
+            let item = this.todos.find(todo => todo.id === id)
+            item.isFinished === false ? item.isFinished = true : item.isFinished = false
+        },
+        showTodosAction(param) {
+            this.showTodos = param
+        },
+        removeTodo(todo) {
+            const index = this.todos.indexOf(todo)
+            this.todos.splice(index, 1)
+        },
+        doneEdit(todo) {
+            if(!this.isEdited) {
+                return
+            }
+            this.isEdited = null
+            todo.title = todo.title.trim()
+            if(!todo.title) {
+                this.removeTodo(todo)
+            }
+        },
+        isEditing(id) {   
+            let item = this.todos.find(todo => todo.id === id)
+            this.beforeEditCache = item.title
+            this.isEdited = item 
         }
     }
 })
